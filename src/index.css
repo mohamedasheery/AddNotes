@@ -8,10 +8,11 @@
 html {
     overflow-y: scroll;
 }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap');
 
 body {
  
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Montserrat,Alternates !important;
    
 }
 
@@ -73,12 +74,12 @@ textarea {
 
 .nav-link {
     color: #fff !important;
-    font-size: 1.5rem;
+
 }
 
 .nav-link:hover {
     color: rgb(233, 222, 222) !important;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .add {
@@ -96,8 +97,9 @@ textarea {
 }
 
 .note {
-    background: teal;
+    background: #5C636A;
     transition: all 0.3s;
+    color: #ffff !important;
   
 }
 
@@ -115,23 +117,32 @@ textarea {
 }
 
 .del:hover {
-    color: #F44336;
+    color: #270f0d;
     transform: rotate(-110deg);
+    cursor: pointer;
 }
 
 .edit:hover {
-    color: #07f542;
+    color: #270f0d;
     transform: rotate(-50deg);
+    cursor: pointer;
 }
 .modalform{
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1055;
-    /* display: none ; */
+  
     width: 100%;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0;
+}
+.pointer{
+    cursor: pointer;
+}
+.minBgColor{
+    background-color: #131722;
+
 }

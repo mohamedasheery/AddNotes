@@ -4,15 +4,18 @@ import Rigester from "../Rigester/Rigester";
        
 import Search from "../Search/Search";
 
-import {element, Route, Routes} from "react-router";
+import { Route, Routes} from "react-router";
 import ProtectedRoute from "./../ProtectedRoute/ProtectedRoute";
 import { UserInfoProvider } from "../../UserInfoContext";
 import Notfound from "./../Notfound/Notfound";
+import Login from "../Login/Login";
+import LandingPage from "../LandingPage/LandingPage";
+import Footer from "../Footer/Footer";
 
 
 function App() {
   return (
-    <div className="App pt-5">
+    <div className="App ">
       <UserInfoProvider>
         <Navbar />
      
@@ -20,15 +23,17 @@ function App() {
       <Routes>
         <Route path="/home"  element={ <ProtectedRoute> <Home /> </ProtectedRoute> } />
         <Route path="/search"  element={<ProtectedRoute> <Search /></ProtectedRoute>} />
-        <Route path="/rigester"  element={ <Rigester />} />
+        <Route path="/register"  element={ <Rigester />} />
+        <Route path="/login"  element={ <Login />} />
 
         <Route path="/Search" element={<Search />}  />
 
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<LandingPage/>} />
           <Route path="*" element={<Notfound />} />
           
         </Routes>
         </UserInfoProvider>
+        <Footer/>
     </div>
   );
 }

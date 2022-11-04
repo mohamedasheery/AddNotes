@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from 'react-router';
+import { NavLink } from "react-router-dom";
+import Joi from "joi";
 
 
 export default function Rigester(props) {
   let navigate = useNavigate();
   let [error, setError] = useState("");
-  let [isloading, setisloading] = useState(false);
+  let [isloading, setIsLodaing] = useState(false);
+  const [validteClinteError, setValidteClinteError] = useState([])
   const [user, setuser] = useState({
     first_name: "",
     last_name: "",
@@ -18,81 +21,168 @@ export default function Rigester(props) {
     let myuser = { ...user };
     myuser[e.target.name] = e.target.value;
     setuser(myuser);
-    console.log(myuser);
+    
   }
 
   async function sendData(e) {
     e.preventDefault();
-    setisloading(true);
-
-    let { data } = await axios.post(
-      `https://route-egypt-api.herokuapp.com/signup`,
-      user
-    );
    
-    if (data.message === "success") {
-      setisloading(false);
-      navigate("/login");;
-    } else {
+    setIsLodaing(true);
+    let validateResponse = validationRegisterForm();
+    if (validateResponse.error) {
+
+      setValidteClinteError(validateResponse.error.details);
+      setIsLodaing(false);
+    }else{
+      let { data } = await axios.post(
+        `https://route-egypt-api.herokuapp.com/signup`,
+        user
+      );
+      setIsLodaing(false);
+      if (data.message === "success") {
      
-      setisloading(false);
-      setError(data.message);
+        navigate("/login");;
+      } else {
+       
+     
+        setError(data.message);
+      }
     }
+
+   
+  }
+  function validationRegisterForm() {
+    let schema = Joi.object({
+      first_name: Joi.string().alphanum().min(3).max(16).required(),
+      last_name: Joi.string().alphanum().min(3).max(16).required(),
+      email: Joi.string().required().email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "eg"] },
+      }),
+      password: Joi.string().required().pattern(new RegExp("^[a-zA-Z0-9]{3,16}$")),
+    });
+    return schema.validate(user, { abortEarly: false });
   }
 
   return (
     <>
-      <div className="container my-5 py-5">
-        <div className="col-md-5 m-auto text-center">
-          <form onSubmit={sendData}>
-            <div className="form-group">
+   
+    <div className="container minBgColor col-sm-6  my-5 py-3">
+    <div className="row">
+        <div className="col-md-10 m-auto ">
+          <h2 className="text-light">Register Now</h2>
+          <form onSubmit={sendData} className="text-light">
+       
+            <div class="mb-3">
+              <label for="exampleInputFirst_name" class="form-label">
+              Enter First Name
+              </label>
               <input
+                type="text"
+                class="form-control"
+                id="exampleInputFirst_name"
                 onChange={getuser}
                 placeholder="Enter your f name"
                 name="first_name"
-                type="text"
-                className=" form-control"
               />
+               {validteClinteError.map((error, index) =>
+            error.path[0] === "first_name" ? (
+              <div key={index} className="text-danger">
+               {error.message}  
+              </div>
+            ) : (
+              ""
+            )
+          )}
+          
             </div>
-            <div className="form-group">
+            <div class="mb-3">
+              <label for="exampleInputLast_name" class="form-label">
+              Enter Last Name
+              </label>
               <input
+                type="text"
+                class="form-control"
+                id="exampleInputLast_name"
                 onChange={getuser}
-                placeholder="Enter yourl name"
+                placeholder="Enter Last Name"
                 name="last_name"
-                type="text"
-                className=" form-control"
               />
+               {validteClinteError.map((error, index) =>
+            error.path[0] === "last_name" ? (
+              <div key={index} className="text-danger">
+               {error.message} 
+              </div>
+            ) : (
+              ""
+            )
+          )}
             </div>
-            <div className="form-group">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
+                Email address
+              </label>
               <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
                 onChange={getuser}
                 placeholder="Enter email"
-                type="email"
                 name="email"
-                className="form-control"
               />
+                   {validteClinteError.map((error, index) =>
+            error.path[0] === "email" ? (
+              <div key={index} className="text-danger">
+              {error.message} 
+              </div>
+            ) : (
+              ""
+            )
+          )}
+              <div id="emailHelp" class="form-text">
+                We'll never share your email with anyone else.
+              </div>
             </div>
-            <div className="form-group">
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">
+                Password
+              </label>
               <input
-                onChange={getuser}
-                placeholder="Enter you password"
                 type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                onChange={getuser}
+                placeholder="Enter password"
                 name="password"
-                className="form-control"
               />
+                   {validteClinteError.map((error, index) =>
+            error.path[0] === "password" ? (
+              <div key={index} className="text-danger">
+               "password invalid"  
+              </div>
+            ) : (
+              ""
+            )
+          )}
             </div>
+           
             {error && <div className="alert alert-danger">{error}</div>}
 
-            <button type="submit" className="btn btn-info mt-2">
+            <button type="submit" className="btn  btn-secondary m-2 ">
               {isloading ? (
                 <i className="fas fa-spinner fa-spin"></i>
               ) : (
                 " register"
               )}
             </button>
+            <span>you have  account</span> <NavLink className="text-muted" to="/login">login</NavLink>
+
           </form>
         </div>
       </div>
+    </div>
+  
+   
     </>
   );
 }

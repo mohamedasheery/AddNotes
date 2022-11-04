@@ -3,57 +3,60 @@ import { NavLink } from "react-router-dom";
 import { UserInfoContext } from "../../UserInfoContext";
 
 export default function Navbar(props) {
-  let { loginUser, logout } = useContext(UserInfoContext);
-
+  let { loginUser, logout } = useContext(UserInfoContext); 
+ 
   return (
-    <div className="mb-5">
-     
-      <nav className="navbar navbar-expand-lg fixed-top p-2  bg-dark">
-        <div className="container">
-           <NavLink className="navbar-brand" to="/">
+    <div className="mb-2">
+      <nav className="navbar navbar-expand-lg navbar-light minBgColor">
+        <div className="container-fluid">
+          <a className="navbar-brand text-muted" href="#">
             Notes
-          </NavLink> 
+          </a>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler bg-light"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
             aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon bg-light"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto">
+            <ul className="navbar-nav ">
               {loginUser ? (
                 <>
                   <li className="nav-item">
-                  <NavLink className="nav-link" to="/home">
-                    Home
-                  </NavLink>
-                </li><li className="nav-item">
-                    <NavLink className="nav-link" to="/search">
-                    Search
+                    <NavLink className="nav-link " to="/home">
+                      Home
                     </NavLink>
-                  </li></>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/search">
+                      Search
+                    </NavLink>
+                  </li>
+                </>
               ) : (
                 ""
               )}
             </ul>
-
-            <ul className="navbar-nav ml-auto ">
+            <ul className="navbar-nav ms-auto mb-1 mb-lg-0">
               {loginUser ? (
                 <>
-                  <li onClick={logout} className="nav-item nav-link ">
+                   <li  className="nav-item nav-link  ">
+                    <p>welcome {loginUser.first_name}</p>
+                  </li>
+                  <li onClick={logout} className="nav-item nav-link pointer ">
                     Logout
                   </li>
-                
+               
                 </>
               ) : (
                 <>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/rigester">
+                    <NavLink className="nav-link" to="/register">
                       Register
                     </NavLink>
                   </li>
