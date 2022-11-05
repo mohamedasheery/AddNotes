@@ -34,7 +34,7 @@ export default function Login(props) {
       );
       setIsLodaing(false);
       if (data.message === "success") {
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         getUserInfo();
   
       

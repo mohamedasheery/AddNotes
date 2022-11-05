@@ -10,20 +10,20 @@ export function UserInfoProvider(props) {
   let [loginUser, setloginUser] = useState('');
 
   function logout() {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setloginUser(null);
     navigate("/login");
   }
 
   function getUserInfo() {
     
-    let endecodedToken = localStorage.getItem("token");
+    let endecodedToken = sessionStorage.getItem("token");
     let userData = jwt_decode(endecodedToken);
     setloginUser(userData);
   
   }
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
       getUserInfo();
       
     }

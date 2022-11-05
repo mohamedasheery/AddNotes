@@ -11,7 +11,7 @@ export default function Home() {
 
   let baseUrl = "https://route-egypt-api.herokuapp.com/";
 
-   const token = localStorage.getItem("token");
+   const token = sessionStorage.getItem("token");
   if (loginUser) {
     var userID = loginUser._id;
     console.log(userID);
