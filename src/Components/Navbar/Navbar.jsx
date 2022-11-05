@@ -11,7 +11,7 @@ export default function Navbar(props) {
       <nav className="navbar navbar-expand-lg navbar-light minBgColor">
         <div className="container-fluid">
         <NavLink className="navbar-brand fw-bold" to="/#">
-            Noxi
+            Notes
           </NavLink>
           <button
             className="navbar-toggler bg-light"
