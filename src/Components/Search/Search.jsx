@@ -32,17 +32,15 @@ export default function Search() {
 
   return (
     <div className="container vh-100">
-      <h3>Search About Any Thing And Save It In Note Page</h3>
+      <h3 className="minBgColor text-center rounded p-2 text-light">Search About Any Thing And Save It In Note Page</h3>
       <div className="row">
         <div className="col">
           <div className="my-3">
-            <label htmlFor="exampleFormControlInput1" className="form-label ">
-              Search 
-            </label>
+       
 
-            <div class="d-flex">
+            <div class="">
               <input
-                class="form-control me-2"
+                class="form-control me-2 w-75"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
@@ -50,7 +48,7 @@ export default function Search() {
                 onChange={(e) => setTrem(e.target.value)}
                 value={trem}
               />
-              <button class="btn btn-outline-success" onClick={()=>clearResulet()} >
+              <button class="btn btn-outline-success my-2" onClick={()=>clearResulet()} >
                 Clear
               </button>
             </div>
