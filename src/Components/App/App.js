@@ -29,6 +29,7 @@ function App() {
         <Route path="/Search" element={<Search />}  />
 
         <Route path="/" element={<LandingPage/>} />
+        <Route path="/AddNotes//"element={<LandingPage/>} />
           <Route path="*" element={<Notfound />} />
           
         </Routes>
