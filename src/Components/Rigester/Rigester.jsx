@@ -35,7 +35,7 @@ export default function Rigester(props) {
       setIsLodaing(false);
     }else{
       let { data } = await axios.post(
-        `https://route-egypt-api.herokuapp.com/signup`,
+        `https://route-movies-api.vercel.app/signup`,
         user
       );
       setIsLodaing(false);
